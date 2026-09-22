@@ -1,0 +1,37 @@
+diff --git a/modules/widgets/dashboard/controls/SettingsTab.qml b/modules/widgets/dashboard/controls/SettingsTab.qml
+index aaef9eca..5a0862e8 100644
+--- a/modules/widgets/dashboard/controls/SettingsTab.qml
++++ b/modules/widgets/dashboard/controls/SettingsTab.qml
+@@ -255,6 +255,12 @@ Rectangle {
+             section: 8,
+             isIcon: true
+         },
++        {
++            icon: Icons.sparkle,
++            label: "Animations",
++            section: 116923207,
++            isIcon: true
++        },
+         {
+             icon: Icons.puzzlePiece,
+             label: "Mods",
+@@ -563,6 +569,10 @@ Rectangle {
+ 
+             // Panel definitions for Loader
+             readonly property var panelComponents: [
++                {
++                    component: "AnimationsPanel.qml",
++                    section: 116923207
++                },
+                 {
+                     component: "WifiPanel.qml",
+                     section: 0
+@@ -614,7 +624,7 @@ Rectangle {
+                 id: panelLoader
+                 anchors.fill: parent
+                 asynchronous: true
+-                source: contentArea.panelComponents[root.currentSection]?.component ?? ""
++                source: contentArea.panelComponents.find(panel => panel.section === root.currentSection)?.component ?? ""
+ 
+                 // Fade in animation
+                 opacity: status === Loader.Ready ? 1 : 0

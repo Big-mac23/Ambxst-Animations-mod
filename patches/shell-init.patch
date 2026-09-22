@@ -1,0 +1,12 @@
+diff --git a/shell.qml b/shell.qml
+index 888996d3..68fe566a 100644
+--- a/shell.qml
++++ b/shell.qml
+@@ -309,6 +309,7 @@ ShellRoot {
+         onTriggered: {
+             let _ = NightLightClient.active;
+             _ = GameModeClient.toggled;
++            _ = AnimationsService.ready; // Animation Studio: load config and apply to Hyprland
+         }
+     }
+ }

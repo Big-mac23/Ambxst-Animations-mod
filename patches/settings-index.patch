@@ -1,0 +1,16 @@
+diff --git a/modules/widgets/dashboard/controls/SettingsIndex.qml b/modules/widgets/dashboard/controls/SettingsIndex.qml
+index 0ef76170..55280548 100644
+--- a/modules/widgets/dashboard/controls/SettingsIndex.qml
++++ b/modules/widgets/dashboard/controls/SettingsIndex.qml
+@@ -22,6 +22,11 @@ QtObject {
+         { label: "Install mod", keywords: "add local directory archive git repository source", section: 10, subSection: "", subLabel: "Mods", icon: Icons.puzzlePiece, isIcon: true },
+         { label: "Rollback generation", keywords: "restore recover previous failed", section: 10, subSection: "", subLabel: "Mods", icon: Icons.arrowCounterClockwise, isIcon: true },
+ 
++        // --- Animations (Animation Studio mod) ---
++        { label: "Animations", keywords: "animation curves bezier spring easing hyprland windows workspaces fade speed motion", section: 116923207, subSection: "", subLabel: "", icon: Icons.sparkle, isIcon: true },
++        { label: "Spring animation", keywords: "mass stiffness dampening bounce physics hyprland 0.56", section: 116923207, subSection: "", subLabel: "Animations", icon: Icons.sparkle, isIcon: true },
++        { label: "Bezier curve", keywords: "cubic easing custom curve editor handles", section: 116923207, subSection: "", subLabel: "Animations", icon: Icons.sparkle, isIcon: true },
++
+         // --- Network ---
+         { label: I18n.t("settings.network"), keywords: "internet wifi connection ethernet ip", section: 0, subSection: "", subLabel: "", icon: Icons.wifiHigh, isIcon: true },
+ 
