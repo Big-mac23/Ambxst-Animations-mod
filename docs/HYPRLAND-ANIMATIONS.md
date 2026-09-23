@@ -1,36 +1,3 @@
-# Hyprland animations, in plain terms
-
-This has nothing to do with QML or this mod's code — it's what Hyprland
-itself does, so the code makes sense when you read it.
-
-## Curves: two kinds of "how motion feels"
-
-An animation needs a function that maps "how far through the animation am
-I" (0 to 1) to "how far along the change am I" (also roughly 0 to 1, but
-can overshoot). That function is the **curve**.
-
-### Bezier
-
-A cubic bezier curve with fixed start `(0,0)` and end `(1,1)` points, and
-two *control* points `(x1,y1)` and `(x2,y2)` you choose. Hyprland (and
-this mod) constrain `x1`/`x2` to 0–1 but let `y1`/`y2` go up to ±3, which
-is how you get overshoot ("ease out back" style bounces).
-
-Intuition: the control points act like magnets pulling the curve's early
-and late shape toward them. A control point near `(0, 1)` makes the
-animation shoot up fast then coast — "ease out". Near `(1, 0)` does the
-opposite. If you're picking numbers by hand rather than dragging,
-[cubic-bezier.com](https://cubic-bezier.com) is a good place to feel this
-out before typing values in — the math is identical to CSS's
-`cubic-bezier()`.
-
-In code: `Logic.bezierProgress(x1, y1, x2, y2, t)`. It solves for the
-bezier's `x` parameter that corresponds to time `t` (Newton's method, with
-bisection as a fallback if Newton doesn't converge — happens for very
-sharp curves), then evaluates `y` at that same parameter. This is
-standard "easing function from bezier control points" math; the four
-numbers in a curve fully determine it.
-
 ### Spring (Hyprland 0.56+)
 
 A **physical** curve: imagine a mass on a spring, pulled to a target and
@@ -41,23 +8,10 @@ released. Three numbers describe it:
   1 and doing your tuning with the other two.
 - **stiffness** — how hard the spring pulls. Higher = faster, snappier.
 - **dampening** (yes, spelled with the extra "en" in Hyprland's own
-  config key — see the note below) — how much the motion is resisted, à
-  la a shock absorber. Higher = less bounce, more "arrives and stops".
+  config key — see the note below) — how much the motion is resisted. 
+  Higher = less bounce, more "arrives and stops".
 
-The three combine into one number physicists call **damping ratio (ζ)**:
-
-- ζ < 1 → **underdamped**: overshoots, oscillates before settling. Bouncy.
-- ζ = 1 → **critically damped**: fastest approach to the target with no
-  overshoot at all.
-- ζ > 1 → **overdamped**: no overshoot, but slower than critical.
-
-This mod shows you ζ directly (under the spring sliders) along with
-"settles in ≈ X ms" and "overshoot Y%", computed by
-`Logic.springStats(mass, stiffness, dampening)`, so you don't have to do
-the physics in your head — turn dampening up until "Bouncy" becomes
-"Critically damped" if you want the spring feel without any overshoot.
-
-**A spelling trap worth knowing about explicitly:** Hyprland's actual
+Hyprland's actual
 config key is `dampening`, not the more common English `damping`. You'll
 see `damping` used informally in some blog posts and even in some copied
 example configs. This mod's importer (`Logic.importLua`) accepts both
@@ -109,11 +63,9 @@ card rather than silently failing everything.
 ## Speed units
 
 Hyprland's animation "speed" is in **deciseconds** — `4` means roughly
-400ms, not 4 seconds and not 4ms. This trips people up constantly when
+400ms. This trips people up constantly when
 hand-writing configs; it's the reason the mod doesn't hide the raw number
-behind a "milliseconds" label — deciseconds is genuinely what Hyprland's
-API takes, and translating it would make imported/exported configs
-inconsistent with what everyone else's Hyprland configs say.
+behind a "milliseconds" label
 
 ## What `hl.curve()` / `hl.animation()` actually are
 

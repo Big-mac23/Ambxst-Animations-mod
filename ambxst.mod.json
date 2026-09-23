@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "description": "A Settings page for Hyprland animations: custom bezier curves, spring curves (Hyprland 0.56), per-leaf timings and styles, live preview and apply. Docs: docs/README.md.",
   "license": "AGPL-3.0-or-later",
-  "author": "Your Name",
+  "author": "Big-Mac23",
   "compatibility": {
     "api": 1,
     "ambxst": ">=1.3.8 <1.4.0",
